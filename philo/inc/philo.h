@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:07:52 by avolcy            #+#    #+#             */
-/*   Updated: 2023/12/27 20:21:48 by avolcy           ###   ########.fr       */
+/*   Updated: 2023/12/31 17:27:28 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,10 @@
 # include <limits.h>
 # include <pthread.h>
 # include <sys/time.h>
+
+# define ARG "\n\tThe provided arguments are not correct !\n\tTry like this :\n"
+# define RAG "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
+# define GAR "[time_to_sleep]\n\tif you wish [num_of_time_each_philo_must_eat]\n"
 
 typedef struct s_data
 {
