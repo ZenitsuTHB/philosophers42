@@ -6,11 +6,19 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2023/12/31 17:22:06 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/03 14:29:18 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+long	ft_get_time(void)
+{
+	struct timeval	tv;
+
+	gettimeofday(&tv, NULL);
+	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+}
 
 int	ft_isdigit(int v)
 {
@@ -38,7 +46,7 @@ long	ft_atol(char *str)
 	}
 	while (str[i] && str[i] >= '0' && str[i] <= '9')
 	{
-		result = (result * 10) + str[i] - '0';
+		result = (result * 10) + str[i] - 48;
 		i++;
 	}
 	return (sign * result);
