@@ -6,11 +6,15 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/03 14:29:18 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/14 01:03:12 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+//void	custom_usleep(long time)
+//{
+//}
 
 long	ft_get_time(void)
 {

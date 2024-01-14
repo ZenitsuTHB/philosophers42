@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:07:52 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/03 20:54:32 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/14 18:12:26 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,45 +33,68 @@
 # define DEF "\033[39m"
 # define GRAY "\033[30m"
 
+//# define E "\033[m"        //end
+//# define R "\033[1;31m"    //red
+//# define G "\033[1;32m"    //green
+//# define Y "\033[1;33m"    //yellow
+//# define B "\033[1;34m"    //blue
+//# define T "\033[1;35m"	   //Turquesa
+//# define C "\033[1;36m"    //Cyan
+//# define O "\033[38;5;208m" //orange
+//# define F "\033[38;5;128m"  //purple
+
+
 # define ARG "\n\tThe provided arguments are not correct !\n\tTry like this :\n"
 # define RAG "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
 # define GAR "[time_to_sleep]\n\tif you wish [num_of_time_each_philo_must_eat]\n"
 
  
 typedef struct s_data t_data;
-typedef struct pthread_mutex_t t_mtx;
+//typedef struct pthread_mutex_t t_mtx;
 
-typedef struct s_fork
+typedef enum e_status
 {
-	t_mtx	*fork;
-	int		fork_id;
-}	t_fork;
+	FORK,
+	EATING,
+	SLEEP,
+	THINK,
+	DIED
+}	t_status;
 
 typedef struct s_philo
 {
 	int				id;
 	int				full;
-	t_data			*data;//to grant access to philos to s_data;
 	pthread_mutex_t	lock; 
+	t_data			*data;//to grant access to philos to s_data;
+	int				eating;
 	pthread_mutex_t	*r_fork; 
 	pthread_mutex_t	*l_fork;
+	long			time_to_die;
 }	t_philo;
    
-struct s_data
+typedef struct s_data
 {
 	int		died;//whether a philo died💀 or all philos are full🍖
+	int		all_full;
 	t_philo *philo;
-	pthread_mutex_t	*forks;
 	long	phil_num;
 	long	meal_num;
 	long	die_time;
 	long	eat_time;
 	long	sleep_time;
 	long	start_time;
+	thread_t	t_id; 
+	pthread_t	tester; 
 	pthread_mutex_t	lock; 
-};
+	pthread_mutex_t	write; 
+	pthread_mutex_t	*forks;
+}		t_data;
 
-
+void	clean_table(t_data *data);
+int		start_dinner(t_data *data);
+void    init_forks(t_data *data);
+void	customed_usleep(long time);
 void	init_philos(t_data *data);
 long	ft_atol(char *str);
 long	ft_get_time(void);
@@ -80,6 +103,5 @@ int		error_function(void);
 int		check_num(char *s, int i);
 int		check_args(int ac, char **av);
 int		init_struct(t_data *data, char **argv);
-
+int ft_exit(t_data *data, char *s);
 #endif
-
