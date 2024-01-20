@@ -6,35 +6,44 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 03:55:11 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 19:25:04 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
 /*
- * in case of faillure gettimeofday returns -1 && errno
- * 0 in case of success
- * if successful, it updates the struct timeval 
- * pointed to by tv with the current time.
+ * if failed gettimeofday returns -1 && errno, 0 in case of success,
+ * updates the struct timeval pointed to by tv with the current time.
+ * ft_spin_lock is a spin-lock to repeatedly checking the time until
+ * the specified time has passed, the thread dont yield the CPU to 
+ * other thread during the wait
 */
 
-//void	ft_usleep(long time)
-//{
-//}
+void	spin_lock(unsigned long time)
+{
+	unsigned long	start;
+	
+	start = ft_gettime();
+	while ((ft_gettime() - start) < time)
+		usleep(time);
+}
+
 long	ft_gettime(void)
 {
-	struct timeval	tv;
-
+	struct	timeval tv;
+	
 	if(gettimeofday(&tv, NULL))
-		printf("\t\n%sgettimeofday has encountered an error !%s\n", R, D);
+		printf(R"\t\ngettimeofday has encountered an error !\n"D);
 	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
 
-int	ft_isdigit(int v)
+int	isdigit_space(int v, char flag)
 {
-	if (v >= 48 && v <= 57)
-		return (1);
+	if (flag == 'd')
+		return (v >= '0' && v <= '9');
+	else if (flag == 's')
+		return (v == 32 || (v >= 9 && v <= 13));
 	return (0);
 }
 
@@ -47,7 +56,7 @@ long	ft_atol(char *str)
 	i = 0;
 	sign = 1;
 	result = 0;
-	while (str[i] == 32 || (str[i] >= 9 && str[i] <= 13))
+	while (isdigit_space(str[i], 's'))
 		i++;
 	if (str[i] == '-' || str[i] == '+')
 	{
@@ -55,7 +64,7 @@ long	ft_atol(char *str)
 			sign = -1;
 		i++;
 	}
-	while (str[i] && str[i] >= '0' && str[i] <= '9')
+	while (str[i] && isdigit_space(str[i], 'd'))
 	{
 		result = (result * 10) + str[i] - 48;
 		i++;

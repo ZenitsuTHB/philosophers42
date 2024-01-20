@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 18:29:08 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 04:18:59 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 19:22:55 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	check_num(char *s, int i)
 		i++;
 	while (s[i])
 	{
-		if (!ft_isdigit(s[i]))
+		if (!isdigit_space(s[i], 'd'))
 			return (0);
 		i++;
 	}

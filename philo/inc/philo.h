@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:07:52 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 04:18:51 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 19:24:58 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,14 @@
 # define PHILO_H
 
 # include <stdio.h>
+# include "struct.h"
 # include <stdlib.h>
-# include <stdbool.h>
 # include <unistd.h>
 # include <limits.h>
-# include <pthread.h>
 # include <sys/time.h>
 
-# define T 1
-# define F -1
+# define F 1
+# define T -1
 
 # define R "\033[31m"
 # define G "\033[32m"
@@ -49,57 +48,15 @@
 # define RAG "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
 # define GAR "[time_to_sleep]\n\tif you wish [num_of_time_each_philo_must_eat]\n"
 
- 
-typedef struct s_data t_data;
-//typedef struct pthread_mutex_t t_mtx;
-
-typedef enum e_status
-{
-	DIED,
-	EATING,
-	FORK,
-	SLEEP,
-	THINK
-}	t_status;
-
-typedef struct s_philo
-{
-	int				id;
-	bool			one_full;
-	pthread_mutex_t	lock; 
-	t_data			*data;//to grant access to philos to s_data;
-	int				eating;
-	pthread_mutex_t	*r_fork; 
-	pthread_mutex_t	*l_fork;
-	long			time_to_die;
-}	t_philo;
-   
-typedef struct s_data
-{
-	bool	one_died;//whether a philo died💀 or all philos are full🍖
-	bool	all_full;
-	t_philo *philo;
-	long	phil_num;
-	long	meal_num;
-	long	die_time;
-	long	eat_time;
-	long	sleep_time;
-	long	start_time;
-	pthread_t	*t_id; 
-	pthread_t	tester; 
-	pthread_mutex_t	write; 
-	pthread_mutex_t	*forks;
-}		t_data;
-
 void	display_status(int status, char *msg, t_philo *philo);
 void	clean_table(t_data *data);
 int		start_dinner(t_data *data);
 void    init_forks(t_data *data);
-void	customed_usleep(long time);
+void	spin_lock(unsigned long time);
 void	init_philos(t_data *data);
 long	ft_atol(char *str);
 long	ft_gettime(void);
-int		ft_isdigit(int v);
+int		isdigit_space(int v, char flag);
 int		error_function(void);
 int		check_num(char *s, int i);
 int		check_args(int ac, char **av);

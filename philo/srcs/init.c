@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:13:00 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 03:47:37 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 18:17:29 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,9 @@ void	init_philos(t_data *data)
 
 int	init_struct(t_data *data, char **argv)
 {
-	data->one_died = false;
 	data->meal_num = -1;
+	data->one_died = false;
+	data->all_full = false;
 	data->phil_num = ft_atol(argv[1]);
 	data->die_time = ft_atol(argv[2]);
 	data->eat_time = ft_atol(argv[3]);
