@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:07:52 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/14 18:12:26 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 04:18:51 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 
 # include <stdio.h>
 # include <stdlib.h>
+# include <stdbool.h>
 # include <unistd.h>
 # include <limits.h>
 # include <pthread.h>
@@ -30,10 +31,10 @@
 # define M "\033[35m"
 # define C "\033[36m"
 # define W "\033[37m"
-# define DEF "\033[39m"
+# define D "\033[39m"
 # define GRAY "\033[30m"
 
-//# define E "\033[m"        //end
+//# define D "\033[m"        //end
 //# define R "\033[1;31m"    //red
 //# define G "\033[1;32m"    //green
 //# define Y "\033[1;33m"    //yellow
@@ -54,17 +55,17 @@ typedef struct s_data t_data;
 
 typedef enum e_status
 {
-	FORK,
+	DIED,
 	EATING,
+	FORK,
 	SLEEP,
-	THINK,
-	DIED
+	THINK
 }	t_status;
 
 typedef struct s_philo
 {
 	int				id;
-	int				full;
+	bool			one_full;
 	pthread_mutex_t	lock; 
 	t_data			*data;//to grant access to philos to s_data;
 	int				eating;
@@ -75,8 +76,8 @@ typedef struct s_philo
    
 typedef struct s_data
 {
-	int		died;//whether a philo died💀 or all philos are full🍖
-	int		all_full;
+	bool	one_died;//whether a philo died💀 or all philos are full🍖
+	bool	all_full;
 	t_philo *philo;
 	long	phil_num;
 	long	meal_num;
@@ -84,20 +85,20 @@ typedef struct s_data
 	long	eat_time;
 	long	sleep_time;
 	long	start_time;
-	thread_t	t_id; 
+	pthread_t	*t_id; 
 	pthread_t	tester; 
-	pthread_mutex_t	lock; 
 	pthread_mutex_t	write; 
 	pthread_mutex_t	*forks;
 }		t_data;
 
+void	display_status(int status, char *msg, t_philo *philo);
 void	clean_table(t_data *data);
 int		start_dinner(t_data *data);
 void    init_forks(t_data *data);
 void	customed_usleep(long time);
 void	init_philos(t_data *data);
 long	ft_atol(char *str);
-long	ft_get_time(void);
+long	ft_gettime(void);
 int		ft_isdigit(int v);
 int		error_function(void);
 int		check_num(char *s, int i);

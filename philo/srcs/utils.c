@@ -6,22 +6,29 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/14 01:03:12 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 03:55:11 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-//void	custom_usleep(long time)
+/*
+ * in case of faillure gettimeofday returns -1 && errno
+ * 0 in case of success
+ * if successful, it updates the struct timeval 
+ * pointed to by tv with the current time.
+*/
+
+//void	ft_usleep(long time)
 //{
 //}
-
-long	ft_get_time(void)
+long	ft_gettime(void)
 {
 	struct timeval	tv;
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+	if(gettimeofday(&tv, NULL))
+		printf("\t\n%sgettimeofday has encountered an error !%s\n", R, D);
+	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
 
 int	ft_isdigit(int v)

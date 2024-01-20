@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 18:29:08 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/14 03:32:14 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 04:18:59 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,8 @@
 
 static void	ft_clear(t_data	*data)
 {
-//	if (data->tid)
-//		free(data->tid);
+	if (data->t_id)
+		free(data->t_id);
 	if (data->forks)
 		free(data->forks);
 	if (data->philo)
@@ -36,8 +36,8 @@ int	ft_exit(t_data *data, char *msg)
 			pthread_mutex_destroy(&data->forks[i]);
 			pthread_mutex_destroy(&data->philo[i].lock);
 		}
-	//	pthread_mutex_destroy(&data->write);
-		pthread_mutex_destroy(&data->lock);
+		pthread_mutex_destroy(&data->write);
+		//pthread_mutex_destroy(&data->lock);
 		ft_clear(data);
 	}
 	return (0);
@@ -102,6 +102,6 @@ int	main(int argc, char **argv)
 	init_philos(&data);
 	if (!start_dinner(&data))
 		return (1);
-	clean_table(&data);
+//	clean_table(&data);
 	return (0); 
 }

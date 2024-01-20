@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:13:00 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/14 15:32:04 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/20 03:47:37 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ void	init_philos(t_data *data)
 	i = 0;
 	while (i < data->phil_num)
 	{
-		data->philo[i].full = 0;
+		data->philo[i].one_full = false;
 		data->philo[i].id = i + 1;
 		data->philo[i].eating = 0;
 		data->philo[i].data = data;
@@ -64,7 +64,7 @@ void	init_philos(t_data *data)
 
 int	init_struct(t_data *data, char **argv)
 {
-	data->died = F;
+	data->one_died = false;
 	data->meal_num = -1;
 	data->phil_num = ft_atol(argv[1]);
 	data->die_time = ft_atol(argv[2]);
@@ -73,7 +73,6 @@ int	init_struct(t_data *data, char **argv)
 	//data->start_time = ft_get_time();
 	if (argv[5])
 		data->meal_num = ft_atol(argv[5]);
-	pthread_mutex_init(&data->lock, NULL);
 	pthread_mutex_init(&data->write, NULL);
 	if(allocation(data) == F)
 		return (0);
