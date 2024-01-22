@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 19:25:04 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/22 19:51:43 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	isdigit_space(int v, char flag)
 	if (flag == 'd')
 		return (v >= '0' && v <= '9');
 	else if (flag == 's')
-		return (v == 32 || (v >= 9 && v <= 13));
+		return (v == ' ' || (v >= '\t' && v <= '\r'));
 	return (0);
 }
 

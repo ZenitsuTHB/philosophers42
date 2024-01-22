@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 19:25:00 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/22 19:50:30 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	display_status(int status, char *msg, t_philo *philo)
 {
 	 long	i;
 
-	 pthread_mutex_locki(&philo->data->write);
+	 pthread_mutex_lock(&philo->data->write);
 	 if (philo->data->one_died == false)
 	 {
 		 pthread_mutex_lock(&philo->lock);
@@ -45,9 +45,9 @@ void	*routine(void *philo_ptr)
 		spin_lock(philo->data->eat_time);
 	while (philo->data->one_died == false || philo->data->all_full == false)
 	{
-		take_the_forks();
-		eat_your_foods();
-		sleep_then_think();
+		take_the_forks(philo);
+		//eat_your_foods(philo);
+		//sleep_then_think(philo);
 	}
 	return (NULL);
 }
