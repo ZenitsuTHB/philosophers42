@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/22 19:50:30 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/23 21:15:58 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ void	*routine(void *philo_ptr)
 	while (philo->data->one_died == false || philo->data->all_full == false)
 	{
 		take_the_forks(philo);
-		//eat_your_foods(philo);
+		eat_your_foods(philo);
 		//sleep_then_think(philo);
 	}
 	return (NULL);
