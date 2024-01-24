@@ -6,7 +6,7 @@
 #    By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/26 19:48:00 by avolcy            #+#    #+#              #
-#    Updated: 2024/01/15 16:44:49 by avolcy           ###   ########.fr        #
+#    Updated: 2024/01/24 17:36:53 by avolcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,9 @@ INC = ./inc/$(HEADER)
 SRCDIR = ./srcs/
 OBJDIR = ./obj/
 
-SRC = $(SRCDIR)philo.c $(SRCDIR)utils.c $(SRCDIR)init.c $(SRCDIR)dinner.c
+SRC = $(SRCDIR)philo.c $(SRCDIR)utils.c $(SRCDIR)init.c $(SRCDIR)dinner.c\
+	  $(SRCDIR)actions.c
+
 OBJ = $(addprefix $(OBJDIR), $(SRC:$(SRCDIR)%.c=%.o))
 
 #=========|_TARGETS_|=======#

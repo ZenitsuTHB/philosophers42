@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 16:07:52 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/20 19:24:58 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/24 20:17:14 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,12 @@
 # define GAR "[time_to_sleep]\n\tif you wish [num_of_time_each_philo_must_eat]\n"
 
 void	display_status(int status, char *msg, t_philo *philo);
+void	take_the_forks(t_philo *philo);
+void	eat_your_foods(t_philo *philo);
+void	sleep_and_think(t_philo *philo);
 void	clean_table(t_data *data);
 int		start_dinner(t_data *data);
-void    init_forks(t_data *data);
+void    init_the_forks(t_data *data);
 void	spin_lock(unsigned long time);
 void	init_philos(t_data *data);
 long	ft_atol(char *str);

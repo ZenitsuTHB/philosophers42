@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/23 21:15:58 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/24 20:46:23 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	*routine(void *philo_ptr)
 	{
 		take_the_forks(philo);
 		eat_your_foods(philo);
-		//sleep_then_think(philo);
+		sleep_and_think(philo);
 	}
 	return (NULL);
 }
@@ -60,20 +60,17 @@ int	start_dinner(t_data *data)
 {
 	int i;
 	i = -1;
-	//data->start_time = get_time();
+	data->start_time = ft_gettime();
 	while(++i < data->phil_num)
 	{
 		pthread_create(&data->t_id[i], NULL, &routine, &data->philo[i]);
 		usleep(1);
 	}
-	return 1;
-}
-	
-//if (pthread_create(&data->tester, NULL, &monitoring, data) != 0)
+//	if (pthread_create(&data->tester, NULL, &monitoring, data) != 0)
 //		return (0);
-//	i = -1;
-//	while(++i < data->phil_num)
-//		pthread_join(&data->t_id[i], NULL);
+	i = -1;
+	while(++i < data->phil_num)
+		pthread_join(data->t_id[i], NULL);
 //	pthread_join(&data->tester, NULL);
-//	return (1);
-///}
+	return (1);
+}

@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 18:29:08 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/22 19:56:21 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/24 18:30:25 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,6 +100,7 @@ int	main(int argc, char **argv)
 	if (init_struct(&data, argv) == 0)
 		return (1);
 	init_philos(&data);
+	init_the_forks(&data);
 	if (!start_dinner(&data))
 		return (1);
 //	clean_table(&data);

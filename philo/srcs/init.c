@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:13:00 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/23 19:41:04 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/24 20:46:26 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int allocation(t_data *data)
 	return (0);
 }
 
-void	init_forks(t_data *data)
+void	init_the_forks(t_data *data)
 {
 	int	i;
 
@@ -34,9 +34,12 @@ void	init_forks(t_data *data)
 	while (++i < data->phil_num)
 		pthread_mutex_init(&data->forks[i], NULL);
 	i = 0;
+	data->philo[0].l_fork = &data->forks[0];
+	data->philo[0].r_fork = &data->forks[data->phil_num - 1];
+	i = 1;
 	while (i < data->phil_num)
 	{
-		data->philo[i].l_fork = &data->forks[i];
+		data->philo[i].l_fork = &data->forks[(i + 1) % data->phil_num];
 		if (i == 0)
 			data->philo[i].r_fork = &data->forks[data->phil_num - 1];
 		else if (i > 0)
@@ -73,7 +76,7 @@ int	init_struct(t_data *data, char **argv)
 	data->die_time = ft_atol(argv[2]);
 	data->eat_time = ft_atol(argv[3]);
 	data->sleep_time = ft_atol(argv[4]);
-	//data->start_time = ft_get_time();
+	data->start_time = ft_gettime();
 	if (argv[5])
 		data->meal_num = ft_atol(argv[5]);
 	pthread_mutex_init(&data->write, NULL);
