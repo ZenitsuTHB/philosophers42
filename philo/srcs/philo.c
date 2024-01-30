@@ -6,12 +6,11 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 18:29:08 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/24 18:30:25 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:21:56 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
-
 
 static void	ft_clear(t_data	*data)
 {
@@ -23,11 +22,11 @@ static void	ft_clear(t_data	*data)
 		free(data->philo);
 }
 
-int	ft_exit(t_data *data, char *msg)
+int	ft_exit(t_data *data, char *s)
 {
 	int	i;
 	
-	printf("%s", msg);
+	display_status(DIED, s, data->philo);
 	if (data)
 	{
 		i = -1;
@@ -39,6 +38,7 @@ int	ft_exit(t_data *data, char *msg)
 		pthread_mutex_destroy(&data->write);
 		//pthread_mutex_destroy(&data->lock);
 		ft_clear(data);
+		return(1);
 	}
 	return (0);
 }
@@ -77,12 +77,25 @@ int	check_args(int ac, char **av)
 	}
 	return (rval);
 }
-//void	single_philo(t_data *data)
+void	single_philo(t_data *data)
+{
+	
+	data->start_time = ft_gettime();
+	display_status(FORK, "has taken 1st fork", data->philo);
+	spin_lock(data->die_time);
+	display_status(DIED, "is dead", data->philo);
+	return ;
+	//clean_table();
+}
+
+//static void	the_informer(t_data *data)
 //{
-//	
-//	data->start_time = ft_get_time();
-//	display_status(FORK, &data->philo[0]);
-//	customed_usleep(data->die_time);
+//	while (data->phil_num)
+//	{
+//		printf(Y"\t\nPhilo[%ld] lf is --> [%p]", data->phil_num, &data->philo->l_fork);
+//		printf(C"\t\nPhilo[%ld] lf is --> [%p]\n", data->phil_num, &data->philo->r_fork);
+//		data->phil_num--;
+//	}
 //}
 
 int	error_function(void)
@@ -96,13 +109,13 @@ int	main(int argc, char **argv)
 	t_data	data;
 
 	if (check_args(argc, argv) == 0)
-		return (1);
+		return (1);//error_function;
 	if (init_struct(&data, argv) == 0)
 		return (1);
 	init_philos(&data);
 	init_the_forks(&data);
 	if (!start_dinner(&data))
 		return (1);
-//	clean_table(&data);
+//	the_informer(&data);
 	return (0); 
 }

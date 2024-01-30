@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:45:46 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/24 20:42:01 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:09:06 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,21 +31,20 @@ typedef enum e_status
 typedef struct s_philo
 {
 	int				id;
-	bool			lf_taken;
-	bool			rf_taken;
-	bool			one_full;
+	int				one_full;
 	pthread_mutex_t	lock;
 	t_data			*data;//to grant access to philos to s_data;
-	int				eaten;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
+	int				nb_meal_eat;
+	long			last_time_eat;
 	long			time_to_die;
 }	t_philo;
 
 typedef struct s_data
 {
 	bool	one_died;//whether a philo died💀 or all philos are full🍖
-	bool	all_full;
+	int		all_full;
 	t_philo *philo;
 	long	phil_num;
 	int		meal_num;

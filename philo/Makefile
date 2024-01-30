@@ -6,7 +6,7 @@
 #    By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/26 19:48:00 by avolcy            #+#    #+#              #
-#    Updated: 2024/01/24 17:36:53 by avolcy           ###   ########.fr        #
+#    Updated: 2024/01/27 13:31:26 by avolcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,10 +14,14 @@ CC = cc
 NAME = philo
 RM = rm -rf
 HEADER = philo.h
+HEADER1 = struct.h
+HEADER2 = macros.h
 FLAG = -Wall -Wextra -Werror
 
 #========|_PATH_|=========#
 INC = ./inc/$(HEADER)
+INC += ./inc/$(HEADER1)
+INC += ./inc/$(HEADER2)
 
 SRCDIR = ./srcs/
 OBJDIR = ./obj/
@@ -37,7 +41,7 @@ $(OBJDIR)%.o: $(SRCDIR)%.c $(INC) | $(OBJDIR)
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
 
-$(NAME) : $(OBJ) $(INC)
+$(NAME) : $(OBJ) $(INC) Makefile 
 	$(CC) $(FLAG) $(OBJ) -o $@ 
 
 .PHONY: all clean fclean re

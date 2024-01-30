@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:13:00 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/24 20:46:26 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/01/30 20:20:42 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,20 +34,14 @@ void	init_the_forks(t_data *data)
 	while (++i < data->phil_num)
 		pthread_mutex_init(&data->forks[i], NULL);
 	i = 0;
-	data->philo[0].l_fork = &data->forks[0];
-	data->philo[0].r_fork = &data->forks[data->phil_num - 1];
-	i = 1;
 	while (i < data->phil_num)
 	{
-		data->philo[i].l_fork = &data->forks[(i + 1) % data->phil_num];
-		if (i == 0)
-			data->philo[i].r_fork = &data->forks[data->phil_num - 1];
-		else if (i > 0)
-			data->philo[i].r_fork = &data->forks[i - 1];
+		data->philo[i].l_fork = &data->forks[i];  
+		data->philo[i].r_fork = &data->forks[(i + 1) % data->phil_num];
 		i++;
 	}
 }
-
+ 
 void	init_philos(t_data *data)
 {
 	int	i;
@@ -55,11 +49,8 @@ void	init_philos(t_data *data)
 	i = 0;
 	while (i < data->phil_num)
 	{
-		data->philo[i].lf_taken = false;
-		data->philo[i].rf_taken = false;
 		data->philo[i].one_full = false;
 		data->philo[i].id = i + 1;
-		data->philo[i].eaten = 0;
 		data->philo[i].data = data;
 		data->philo[i].time_to_die = data->die_time;
 		pthread_mutex_init(&data->philo[i].lock, NULL);
