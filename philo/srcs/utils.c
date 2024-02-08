@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
+/*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/29 18:16:09 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:12:52 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 void	spin_lock(unsigned long time)
 {
 	unsigned long	start;
-	
+
 	start = ft_gettime();
 	while ((ft_gettime() - start) < time)
 		usleep(time);
@@ -31,9 +31,9 @@ void	spin_lock(unsigned long time)
 
 long	ft_gettime(void)
 {
-	struct	timeval tv;
-	
-	if(gettimeofday(&tv, NULL))
+	struct timeval	tv;
+
+	if (gettimeofday(&tv, NULL))
 		printf(R"\t\ngettimeofday has encountered an error !\n"D);
 	return ((tv.tv_sec * 1e3) + (tv.tv_usec / 1e3));
 }
@@ -70,4 +70,23 @@ long	ft_atol(char *str)
 		i++;
 	}
 	return (sign * result);
+}
+
+int	ft_exit(t_data *data, char *s)
+{
+	int	i;
+
+	printf("%s\n", s);
+	if (data)
+	{
+		i = -1;
+		while (++i < data->phil_num)
+		{
+			pthread_mutex_destroy(&data->forks[i]);
+			pthread_mutex_destroy(&data->philo[i].lock);
+		}
+		pthread_mutex_destroy(&data->write);
+		return (1);
+	}
+	return (0);
 }

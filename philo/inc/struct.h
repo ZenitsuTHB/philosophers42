@@ -3,21 +3,20 @@
 /*                                                        :::      ::::::::   */
 /*   struct.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
+/*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:45:46 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/30 19:09:06 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:40:45 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef STRUCT_H
 # define STRUCT_H
 
-#include <stdbool.h>
-#include <pthread.h>
+# include <stdbool.h>
+# include <pthread.h>
 
-typedef struct s_data t_data;
-//typedef struct pthread_mutex_t t_mtx;
+typedef struct s_data	t_data;
 
 typedef enum e_status
 {
@@ -25,36 +24,37 @@ typedef enum e_status
 	EATING,
 	FORK,
 	SLEEP,
-	THINK
+	THINK,
+	EXIT
 }	t_status;
 
 typedef struct s_philo
 {
 	int				id;
-	int				one_full;
 	pthread_mutex_t	lock;
-	t_data			*data;//to grant access to philos to s_data;
+	t_data			*data;
 	pthread_mutex_t	*r_fork;
 	pthread_mutex_t	*l_fork;
-	int				nb_meal_eat;
-	long			last_time_eat;
+	pthread_mutex_t	last_teat;
 	long			time_to_die;
+	int				nb_meal_eat;
+	bool			finished_meal;
+	long			last_time_eat;
 }	t_philo;
 
 typedef struct s_data
 {
-	bool	one_died;//whether a philo died💀 or all philos are full🍖
-	int		all_full;
-	t_philo *philo;
-	long	phil_num;
-	int		meal_num;
-	long	die_time;
-	long	eat_time;
-	long	sleep_time;
-	long	start_time;
-	pthread_t	*t_id;
-	pthread_t	tester;
+	pthread_t		*t_id;
+	pthread_t		*mont;
 	pthread_mutex_t	write;
 	pthread_mutex_t	*forks;
+	t_philo			*philo;
+	bool			finished;
+	long			phil_num;
+	int				meal_num;	
+	long			die_time;
+	long			eat_time;
+	long			sleep_time;
+	long			start_time;
 }		t_data;
 #endif

@@ -3,18 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   macros.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: avolcy <avolcy@student.42barcelon>         +#+  +:+       +#+        */
+/*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 18:31:01 by avolcy            #+#    #+#             */
-/*   Updated: 2024/01/25 18:33:39 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/08 20:41:54 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MACROS_H
 # define MACROS_H
-
-# define F 1
-# define T -1
 
 # define R "\033[31m"
 # define G "\033[32m"
@@ -36,9 +33,8 @@
 //# define O "\033[38;5;208m" //orange
 //# define F "\033[38;5;128m"  //purple
 
-
 # define ARG "\n\tThe provided arguments are not correct !\n\tTry like this :\n"
 # define RAG "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
-# define GAR "[time_to_sleep]\n\tif you wish [num_of_time_each_philo_must_eat]\n"
+# define GAR "[time_to_sleep]\n\tif u wish [num_of_time_each_philo_must_eat]\n"
 
 #endif
