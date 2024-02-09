@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/06 23:13:00 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:10:21 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:27:24 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ int	init_struct(t_data *data, char **argv)
 	data->start_time = ft_gettime();
 	data->finished = false;
 	pthread_mutex_init(&data->write, NULL);
+	//pthread_mutex_init(&data->fin_mtx, NULL);
 	if (allocation(data) == 1)
 		return (0);
 	return (1);

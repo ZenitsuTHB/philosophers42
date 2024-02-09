@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/20 11:45:46 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:40:45 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/09 18:27:34 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_data
 	pthread_t		*t_id;
 	pthread_t		*mont;
 	pthread_mutex_t	write;
+//	pthread_mutex_t	fin_mtx;
 	pthread_mutex_t	*forks;
 	t_philo			*philo;
 	bool			finished;

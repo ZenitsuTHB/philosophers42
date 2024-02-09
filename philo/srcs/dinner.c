@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:21:20 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/09 21:18:40 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,10 +55,10 @@ static void	*monitoring(void *arg)
 	while (data->finished == false)
 	{
 		i = 0;
-		while (i < data->phil_num)
+		while (i < data->phil_num && data->finished == false)
 			check_death(data, i++);
 		check_full(data);
-		usleep(10);
+		spin_lock(data->die_time);
 	}
 	return ((void *)0);
 }

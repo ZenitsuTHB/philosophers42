@@ -6,7 +6,7 @@
 #    By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/26 19:48:00 by avolcy            #+#    #+#              #
-#    Updated: 2024/02/08 11:29:17 by avolcy           ###   ########.fr        #
+#    Updated: 2024/02/09 21:17:44 by avolcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ RM = rm -rf
 HEADER = philo.h
 HEADER1 = struct.h
 HEADER2 = macros.h
-FLAG = -Wall -Wextra -Werror #-fsanitize=thread -g 
+FLAG = -Wall -Wextra -Werror -fsanitize=thread -g 
 
 #========|_PATH_|=========#
 INC = ./inc/$(HEADER)
