@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/31 18:29:08 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/09 21:11:02 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/14 17:39:39 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 int	ft_clear(t_data	*data)
 {
-	if (data->t_id)
-		free(data->t_id);
 	if (data->forks)
 		free(data->forks);
 	if (data->philo)
@@ -58,21 +56,15 @@ int	check_args(int ac, char **av)
 	return (rval);
 }
 
-/*void	single_philo(t_data *data)
+static int	single_philo(t_data *data)
 {
-	
 	data->start_time = ft_gettime();
 	display_status(FORK, "has taken 1st fork", data->philo);
 	spin_lock(data->die_time);
 	display_status(DIED, "is dead", data->philo);
-	return ;
-	clean_table();
-}
-*/
-
-static void	error_function(void)
-{
-	printf("%s%s%s", ARG, RAG, GAR);
+	if (ft_exit(data, C"end of simulation") == 1)
+		ft_clear(data);
+	return (1);
 }
 
 int	main(int argc, char **argv)
@@ -85,9 +77,12 @@ int	main(int argc, char **argv)
 			return (1);
 		init_philos(&data);
 		init_the_forks(&data);
+		if (data.phil_num == 1)
+			if (single_philo(&data) == 1)
+				return (1);
 		if (!start_dinner(&data))
 			return (1);
 	}
 	else
-		error_function ();
+		printf(R"%s"Y"%s"B"%s%s"F"%s\n"D, AC, BC, CC, DC, EC);
 }

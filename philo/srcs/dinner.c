@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/09 21:18:40 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/14 18:04:45 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,15 @@
  * curtime - utilma < dietime = vivo
  */
 
-static void	check_death(t_data *data, int i)
+static int	check_death(t_data *data, int i)
 {
-	pthread_mutex_lock(&data->write);
-	if (ft_gettime() - data->philo[i].last_time_eat >= data->die_time)
+	if (ft_gettime() - data->philo[i].last_time_eat >= get_timedie(data))
 	{
-		pthread_mutex_unlock(&data->write);
-		data->finished = true;
+		set_finished(data);
 		display_status(DIED, "is dead", &data->philo[i]);
+		return (EXIT);
 	}
-	pthread_mutex_unlock(&data->write);
+	return (0);
 }
 
 static void	check_full(t_data *data)
@@ -36,12 +35,20 @@ static void	check_full(t_data *data)
 
 	i = 0;
 	count = 0;
-	while (i < data->phil_num)
+	while (i < get_philnum(data))
 	{
+		pthread_mutex_lock(&data->fin_meal_mtx);
 		if (data->philo[i].finished_meal == true)
+		{
+			pthread_mutex_unlock(&data->fin_meal_mtx);
 			count++;
-		if (count == data->phil_num)
-			data->finished = true;
+		}
+		pthread_mutex_unlock(&data->fin_meal_mtx);
+		if (count == get_philnum(data))
+		{
+			set_finished(data);
+			break ;
+		}
 		i++;
 	}
 }
@@ -52,18 +59,22 @@ static void	*monitoring(void *arg)
 	t_data	*data;
 
 	data = (void *)arg;
-	while (data->finished == false)
+	while (get_end(data) == false)
 	{
 		i = 0;
-		while (i < data->phil_num && data->finished == false)
-			check_death(data, i++);
+		while (i < get_philnum(data) && get_end(data) == false)
+		{
+			if (check_death(data, i) == EXIT || get_end(data) == true)
+				break ;
+			i++;
+		}
 		check_full(data);
 		spin_lock(data->die_time);
 	}
 	return ((void *)0);
 }
 
-static void	*routine(void *philo_ptr)
+void	*routine(void *philo_ptr)
 {
 	t_philo	*philo;
 
@@ -75,7 +86,7 @@ static void	*routine(void *philo_ptr)
 		take_the_forks(philo);
 		eat_your_foods(philo);
 		sleep_and_think(philo);
-		if (philo->data->finished == true)
+		if (get_end(philo->data) == true)
 			break ;
 	}
 	return (NULL);
@@ -83,21 +94,19 @@ static void	*routine(void *philo_ptr)
 
 int	start_dinner(t_data *data)
 {
-	int	i;
+	int		i;
 
 	i = -1;
 	data->start_time = ft_gettime();
-	while (++i < data->phil_num)
+	while (++i < get_philnum(data))
 	{
-		pthread_mutex_lock(&data->philo->last_teat);
 		data->philo[i].last_time_eat = data->start_time;
-		pthread_mutex_unlock(&data->philo->last_teat);
-		pthread_create(&data->t_id[i], NULL, &routine, &data->philo[i]);
-		usleep(1);
+		pthread_create(&data->philo[i].t_id, NULL, &routine, &data->philo[i]);
 	}
 	monitoring(data);
-	while (++i < data->phil_num)
-		pthread_join(data->t_id[i], NULL);
+	i = -1;
+	while (++i < get_philnum(data))
+		pthread_join(data->philo[i].t_id, NULL);
 	if (ft_exit(data, C"end of simulation") == 1)
 		ft_clear(data);
 	return (1);

@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/27 20:15:29 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:12:52 by avolcy           ###   ########.fr       */
+/*   Created: 2024/02/14 17:12:35 by avolcy            #+#    #+#             */
+/*   Updated: 2024/02/14 17:21:23 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@
  * if failed gettimeofday returns -1 && errno, 0 in case of success,
  * updates the struct timeval pointed to by tv with the current time.
  * ft_spin_lock is a spin-lock to repeatedly checking the time until
- * the specified time has passed, the thread dont yield the CPU to 
+ * the specified time has passed, the thread dont yield the CPU to
  * other thread during the wait
-*/
+ */
 
 void	spin_lock(unsigned long time)
 {
@@ -26,7 +26,7 @@ void	spin_lock(unsigned long time)
 
 	start = ft_gettime();
 	while ((ft_gettime() - start) < time)
-		usleep(time);
+		usleep(100);
 }
 
 long	ft_gettime(void)
@@ -81,11 +81,11 @@ int	ft_exit(t_data *data, char *s)
 	{
 		i = -1;
 		while (++i < data->phil_num)
-		{
 			pthread_mutex_destroy(&data->forks[i]);
-			pthread_mutex_destroy(&data->philo[i].lock);
-		}
 		pthread_mutex_destroy(&data->write);
+		pthread_mutex_destroy(&data->fin_mtx);
+		pthread_mutex_destroy(&data->fin_meal_mtx);
+		pthread_mutex_destroy(&data->time_mtx);
 		return (1);
 	}
 	return (0);

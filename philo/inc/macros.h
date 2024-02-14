@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/25 18:31:01 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/08 20:41:54 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/14 17:08:42 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # define W "\033[37m"
 # define D "\033[39m"
 # define GRAY "\033[30m"
+# define F "\033[38;5;128m"
 
 //# define D "\033[m"        //end
 //# define R "\033[1;31m"    //red
@@ -31,10 +32,11 @@
 //# define T "\033[1;35m"	   //Turquesa
 //# define C "\033[1;36m"    //Cyan
 //# define O "\033[38;5;208m" //orange
-//# define F "\033[38;5;128m"  //purple
 
-# define ARG "\n\tThe provided arguments are not correct !\n\tTry like this :\n"
-# define RAG "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
-# define GAR "[time_to_sleep]\n\tif u wish [num_of_time_each_philo_must_eat]\n"
+# define AC "\n\tThe provided arguments are not correct !"
+# define BC "\n\tTry like this :\n"
+# define CC "\t./philo [number_of_philosophers] [time_to_die] [time_to_eat]"
+# define DC "[time_to_sleep]"
+# define EC "\n\tif u wish [num_of_time_each_philo_must_eat]\n"
 
 #endif
