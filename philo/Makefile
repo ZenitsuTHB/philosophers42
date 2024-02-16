@@ -6,7 +6,7 @@
 #    By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/12/26 19:48:00 by avolcy            #+#    #+#              #
-#    Updated: 2024/02/16 21:01:01 by avolcy           ###   ########.fr        #
+#    Updated: 2024/02/16 21:26:10 by avolcy           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -44,35 +44,46 @@ $(OBJDIR):
 $(NAME) : $(OBJ) $(INC) Makefile 
 	@$(CC) $(FLAG) $(OBJ) -o $@
 	@$(call display_compiling)
-	@printf  "philo compiled successfuly ! ✅\n"
+	@printf "\033[1;32mphilo compiled successfuly ! ✅\n\033[m"
 
 .PHONY: all clean fclean re
 
 #====|_COMPILING_FUNCTION_|====#
 define display_compiling
-	@printf  " Compiling .\r"
+	@printf " \033[1;36mCompiling .\r"
 	@sleep 1
-	@printf  " Compiling . .\r"
-	@sleep 1
-	@printf  " Compiling . . .\r"
+	@printf " Compiling . .\r"
+	@sleep 2
+	@printf " Compiling . . .\n\033[m"
 	@sleep 1
 endef
 #======|_DELETING_FUNCTION_|===#
 define display_deleting
-	@printf  " deleting .\r"
+	@printf  " \033[1;33mdeleting .\r"
 	@sleep 1
 	@printf  " deleting . .\r"
 	@sleep 1
-	@printf  " deleting . . .\r"
+	@printf  " deleting . . .\r\033[m"
 	@sleep 1
 endef
 #=========|_CLEAN_UP_|========#s
+
+D = \033[m
+R = \033[1;31m
+G = \033[1;32m
+Y = \033[1;33m
+B = \033[1;34m
+T = \033[1;35m
+C = \033[1;36m
+O = \033[38;5;208m
+
+#=========|_CLEAN_UP_|========#
 clean :
 	@$(RM) $(OBJDIR)
 	@$(call display_deleting)
-	@printf "Objects are deleted ! ✅\n"
+	@printf "\033[1;36mObjects are deleted ! ✅\n\033[m"
 fclean : clean
 	@$(RM) $(NAME)
 	@$(call display_deleting)
-	@printf "Executable are deleted ! ✅\n"
+	@printf "\033[38;5;208mExecutable are deleted ! ✅\n\033[m"
 re : fclean all
