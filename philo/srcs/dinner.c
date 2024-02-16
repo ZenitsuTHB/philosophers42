@@ -6,7 +6,7 @@
 /*   By: avolcy <avolcy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 03:33:22 by avolcy            #+#    #+#             */
-/*   Updated: 2024/02/14 18:04:45 by avolcy           ###   ########.fr       */
+/*   Updated: 2024/02/16 17:51:15 by avolcy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,7 @@ static void	check_full(t_data *data)
 		}
 		pthread_mutex_unlock(&data->fin_meal_mtx);
 		if (count == get_philnum(data))
-		{
 			set_finished(data);
-			break ;
-		}
 		i++;
 	}
 }
@@ -81,7 +78,7 @@ void	*routine(void *philo_ptr)
 	philo = (t_philo *)philo_ptr;
 	if (philo->id % 2 == 0)
 		spin_lock(philo->data->eat_time);
-	while (philo->finished_meal == false)
+	while (get_end(philo->data) == false)
 	{
 		take_the_forks(philo);
 		eat_your_foods(philo);
